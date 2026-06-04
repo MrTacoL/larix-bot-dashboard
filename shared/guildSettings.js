@@ -7,6 +7,16 @@ const basicModule = {
   message: { type: String, default: '' }
 };
 
+const punishmentRule = {
+  enabled: { type: Boolean, default: false },
+  deleteMessage: { type: Boolean, default: true },
+  warn: { type: Boolean, default: true },
+  tempMute: { type: Boolean, default: false },
+  muteMinutes: { type: String, default: '10' },
+  threshold: { type: String, default: '1' },
+  windowSeconds: { type: String, default: '1' }
+};
+
 const guildSettingsSchema = new mongoose.Schema({
   guildId: { type: String, required: true, unique: true },
   guildName: { type: String, default: '' },
@@ -30,11 +40,60 @@ const guildSettingsSchema = new mongoose.Schema({
     autoRoleId: { type: String, default: '' }
   },
   automod: {
-    antiLinks: { type: Boolean, default: false },
+    enabled: { type: Boolean, default: true },
+    defaultLogChannelId: { type: String, default: '' },
+    dramaChannelId: { type: String, default: '' },
+    muteRoleId: { type: String, default: '' },
+    allowedChannels: { type: [String], default: [] },
+    allowedRoles: { type: [String], default: [] },
+    mediaOnlyChannels: { type: [String], default: [] },
+    deleteScaryFiles: { type: Boolean, default: true },
+    antiLinks: { type: Boolean, default: true },
     antiInvites: { type: Boolean, default: true },
     blockedWords: { type: [String], default: [] },
-    logChannelId: { type: String, default: '' },
-    muteRoleId: { type: String, default: '' }
+    whitelistedDomains: { type: [String], default: ['youtube.com', 'youtu.be', 'google.com', 'discord.com', 'discordapp.com', 'reddit.com', 'tenor.com', 'twitter.com', 'facebook.com'] },
+    inviteSpam: punishmentRule,
+    mentionSpam: punishmentRule,
+    attachmentSpam: punishmentRule,
+    caps: { ...punishmentRule, capsLimit: { type: String, default: '70' } },
+    honeypot: { ...punishmentRule, channels: { type: [String], default: [] } },
+    linkSpam: punishmentRule,
+    badWords: punishmentRule,
+    spam: punishmentRule,
+    warnThreshold: { enabled: { type: Boolean, default: false }, mute: { type: Boolean, default: true }, threshold: { type: String, default: '8' } }
+  },
+  logging: {
+    enabled: { type: Boolean, default: true },
+    defaultLogChannelId: { type: String, default: '' },
+    memberLogChannelId: { type: String, default: '' },
+    serverLogChannelId: { type: String, default: '' },
+    voiceLogChannelId: { type: String, default: '' },
+    messageLogChannelId: { type: String, default: '' },
+    joinLeaveLogChannelId: { type: String, default: '' },
+    ignoredChannels: { type: [String], default: [] },
+    deletedMessages: { type: Boolean, default: true },
+    editedMessages: { type: Boolean, default: true },
+    purgedMessages: { type: Boolean, default: true },
+    memberJoining: { type: Boolean, default: true },
+    memberLeaving: { type: Boolean, default: true },
+    channelCreation: { type: Boolean, default: true },
+    channelUpdate: { type: Boolean, default: true },
+    channelDeletion: { type: Boolean, default: true },
+    roleCreation: { type: Boolean, default: true },
+    roleUpdate: { type: Boolean, default: true },
+    roleDeletion: { type: Boolean, default: true },
+    serverUpdates: { type: Boolean, default: true },
+    emojiChanges: { type: Boolean, default: true },
+    memberRoleUpdates: { type: Boolean, default: true },
+    nameChanges: { type: Boolean, default: true },
+    avatarChanges: { type: Boolean, default: true },
+    memberBans: { type: Boolean, default: true },
+    memberUnbans: { type: Boolean, default: true },
+    memberTimeout: { type: Boolean, default: true },
+    memberRemoveTimeout: { type: Boolean, default: true },
+    voiceJoin: { type: Boolean, default: true },
+    voiceMove: { type: Boolean, default: true },
+    voiceLeave: { type: Boolean, default: true }
   },
   tickets: {
     enabled: { type: Boolean, default: false },
