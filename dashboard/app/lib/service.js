@@ -1,27 +1,21 @@
-export const DEFAULT_GUILD_ID = '1357145785506074825';
-
 export function backendBase() {
-  return 'http://localhost:4000';
+  return process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
 }
 
-export async function saveSection(section, data) {
-  const res = await fetch(`${backendBase()}/api/guilds/${DEFAULT_GUILD_ID}/settings`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ [section]: data })
-  });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.error || 'Save failed');
-  return json;
+export async function apiGet(path) {
+  const response = await fetch(`${backendBase()}${path}`);
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || 'Request failed');
+  return data;
 }
 
-export async function postEmbed(data) {
-  const res = await fetch(`${backendBase()}/api/guilds/${DEFAULT_GUILD_ID}/embed`, {
-    method: 'POST',
+export async function apiSend(path, method, body) {
+  const response = await fetch(`${backendBase()}${path}`, {
+    method,
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data)
+    body: JSON.stringify(body)
   });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.error || 'Embed failed');
-  return json;
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(data.error || 'Request failed');
+  return data;
 }
