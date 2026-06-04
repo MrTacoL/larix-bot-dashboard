@@ -1,0 +1,5 @@
+export default function ReactionRolesPage() {
+  return (
+    <div className="shell"><aside className="sidebar"><div className="logo">Larix<span>Bot</span></div><nav className="nav"><a href="/">Overview</a><a href="/suggestions">Suggestions</a><a href="/embeds">Embed Sender</a><a href="/reaction-roles">Reaction Roles</a><a href="/welcome">Welcome</a><a href="/moderation">Moderation</a><a href="/tickets">Tickets</a></nav></aside><main className="main"><div className="header"><div><h1>Reaction Roles</h1><p className="muted">Create reaction role panels for your Discord server.</p></div><div className="badge">Panels</div></div><div className="card"><form className="form"><label>Panel Channel ID<input placeholder="Channel ID" /></label><label>Panel Title<input defaultValue="Choose your roles" /></label><label>Description<textarea defaultValue="React below to get your roles." /></label><label>Emoji + Role Pairs<textarea placeholder="🔥 = Role ID" /></label><button type="button">Save Panel</button></form></div></main></div>
+  );
+}
