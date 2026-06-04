@@ -8,6 +8,7 @@
     "dev:bot": "npm run dev --prefix bot",
     "dev:backend": "npm run dev --prefix backend",
     "dev:dashboard": "npm run dev --prefix dashboard",
+    "start": "npm start --prefix backend",
     "start:bot": "npm start --prefix bot",
     "start:backend": "npm start --prefix backend",
     "build:dashboard": "npm run build --prefix dashboard"
