@@ -1,0 +1,17 @@
+{
+  "name": "larix-bot-dashboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "install:all": "npm install && npm install --prefix bot && npm install --prefix backend && npm install --prefix dashboard",
+    "dev:bot": "npm run dev --prefix bot",
+    "dev:backend": "npm run dev --prefix backend",
+    "dev:dashboard": "npm run dev --prefix dashboard",
+    "start:bot": "npm start --prefix bot",
+    "start:backend": "npm start --prefix backend",
+    "build:dashboard": "npm run build --prefix dashboard"
+  },
+  "description": "Larix Discord bot with a MEE6-style dashboard, backend API, and MongoDB settings storage.",
+  "license": "MIT"
+}
