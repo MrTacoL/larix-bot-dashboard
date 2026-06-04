@@ -1,7 +1,17 @@
-import SaveBox from '../components/SaveBox.js';
+import DashboardFrame from '../components/DashboardFrame';
+import SaveBox from '../components/SaveBox';
 
 export default function TicketsPage() {
   return (
-    <div className="shell"><aside className="sidebar"><div className="logo">Larix<span>Bot</span></div><nav className="nav"><a href="/">Overview</a><a href="/suggestions">Suggestions</a><a href="/embeds">Embed Sender</a><a href="/reaction-roles">Reaction Roles</a><a href="/welcome">Welcome</a><a href="/moderation">Moderation</a><a href="/tickets">Tickets</a></nav></aside><main className="main"><div className="header"><div><h1>Tickets</h1><p className="muted">Save ticket settings to the backend.</p></div><div className="badge">Connected</div></div><SaveBox title="Ticket Settings" section="tickets" fields={[{ key: 'categoryId', label: 'Ticket Category ID' }, { key: 'staffRoleId', label: 'Staff Role ID' }, { key: 'transcriptChannelId', label: 'Transcript Channel ID' }]} /></main></div>
+    <DashboardFrame title="Ticketing" subtitle="Configure ticket panels, categories, staff roles, and transcripts." activePath="/tickets">
+      <SaveBox title="Ticket Settings" section="tickets" fields={[
+        { key: 'enabled', label: 'Enabled true/false', value: 'false' },
+        { key: 'categoryId', label: 'Ticket Category ID' },
+        { key: 'staffRoleId', label: 'Staff Role ID' },
+        { key: 'transcriptChannelId', label: 'Transcript Channel ID' },
+        { key: 'panelChannelId', label: 'Panel Channel ID' },
+        { key: 'panelMessage', label: 'Panel Message', value: 'Open a support ticket.' }
+      ]} />
+    </DashboardFrame>
   );
 }
