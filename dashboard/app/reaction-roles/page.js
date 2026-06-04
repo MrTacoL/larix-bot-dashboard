@@ -1,5 +1,15 @@
+import DashboardFrame from '../components/DashboardFrame';
+import SaveBox from '../components/SaveBox';
+
 export default function ReactionRolesPage() {
   return (
-    <div className="shell"><aside className="sidebar"><div className="logo">Larix<span>Bot</span></div><nav className="nav"><a href="/">Overview</a><a href="/suggestions">Suggestions</a><a href="/embeds">Embed Sender</a><a href="/reaction-roles">Reaction Roles</a><a href="/welcome">Welcome</a><a href="/moderation">Moderation</a><a href="/tickets">Tickets</a></nav></aside><main className="main"><div className="header"><div><h1>Reaction Roles</h1><p className="muted">Create reaction role panels for your Discord server.</p></div><div className="badge">Panels</div></div><div className="card"><form className="form"><label>Panel Channel ID<input placeholder="Channel ID" /></label><label>Panel Title<input defaultValue="Choose your roles" /></label><label>Description<textarea defaultValue="React below to get your roles." /></label><label>Emoji + Role Pairs<textarea placeholder="🔥 = Role ID" /></label><button type="button">Save Panel</button></form></div></main></div>
+    <DashboardFrame title="Reaction Roles" subtitle="Create reaction role panels for your Discord server." activePath="/reaction-roles">
+      <SaveBox title="Reaction Role Settings" section="reactionRoles" fields={[
+        { key: 'enabled', label: 'Enabled true/false', value: 'false' },
+        { key: 'channelId', label: 'Panel Channel ID' },
+        { key: 'roleId', label: 'Default Role ID' },
+        { key: 'message', label: 'Panel Message', value: 'React below to get your roles.' }
+      ]} />
+    </DashboardFrame>
   );
 }
