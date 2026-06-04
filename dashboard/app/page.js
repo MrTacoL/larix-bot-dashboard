@@ -1,95 +1,129 @@
-const features = [
-  ['Custom JSON UI', 'Build clean panels, controls, and server menus with a Larix-style dashboard flow.'],
-  ['Discord Tools', 'Embeds, suggestions, tickets, welcome messages, and moderation from one place.'],
-  ['MCBE Connected', 'Made for Larix Kit and the Minecraft Bedrock community.'],
-  ['Staff Control', 'Simple tools for staff teams, logs, permissions, and community systems.']
+const menuGroups = [
+  {
+    title: 'Essentials',
+    items: [
+      ['Welcome & Goodbye', '👋', '/welcome'],
+      ['Welcome Channel', '📢', '/welcome'],
+      ['Reaction Roles', '💬', '/reaction-roles'],
+      ['Moderator', '🛡️', '/moderation'],
+      ['Levels', '🏆', '/levels'],
+      ['Achievements', '⭐', '/'],
+      ['Starboards', '🌟', '/starboards']
+    ]
+  },
+  {
+    title: 'Server Management',
+    items: [
+      ['Automations', '🔗', '/automations'],
+      ['Custom Commands', '⌘', '/commands'],
+      ['Invite Tracker', '👥', '/invites'],
+      ['Ticketing', '🎫', '/tickets']
+    ]
+  },
+  {
+    title: 'Utilities',
+    items: [
+      ['Polls', '📊', '/polls'],
+      ['Embed Messages', '📝', '/embeds'],
+      ['Search Anything', '🔎', '/search'],
+      ['Help', '⚙️', '/help'],
+      ['Reminders', '⏱️', '/reminders'],
+      ['Statistics Channels', '📈', '/statistics'],
+      ['Temporary Channels', '🔊', '/temporary-channels']
+    ]
+  }
 ];
 
-const pages = [
-  ['Suggestions', '/suggestions', 'Setup suggestion channels, staff review, approvals, and colors.'],
-  ['Embed Sender', '/embeds', 'Send clean custom embeds straight to Discord channels.'],
-  ['Welcome', '/welcome', 'Control welcome messages, images, channels, and auto roles.'],
-  ['Moderation', '/moderation', 'Configure automod, blocked words, anti-link, and anti-invite tools.'],
-  ['Tickets', '/tickets', 'Create ticket panels with staff roles and transcript channels.'],
-  ['Reaction Roles', '/reaction-roles', 'Build role panels for your Discord community.']
+const achievementCards = [
+  ['King of Spam', 'Send messages', ['Bronze 20', 'Silver 100', 'Gold 500', 'Diamond 1,000']],
+  ['Reaction Master', 'Add reactions to messages', ['Bronze 50', 'Silver 250', 'Gold 1,000', 'Diamond 2,000']],
+  ['Stay Awhile and Listen', 'Spend minutes in voice channels', ['Bronze 10 min', 'Silver 60 min', 'Gold 300 min', 'Diamond 600 min']],
+  ['Thread Creator', 'Create threads', ['Bronze 5', 'Silver 25', 'Gold 100', 'Diamond 200']]
 ];
 
 export default function Home() {
   return (
-    <main className="home">
-      <section className="hero">
-        <div className="heroGlow" />
-        <nav className="topbar">
-          <div className="brand">Larix<span>Kit</span></div>
-          <div className="toplinks">
-            <a href="/suggestions">Dashboard</a>
-            <a href="/embeds">Embeds</a>
-            <a href="/tickets">Tickets</a>
+    <div className="dashShell">
+      <aside className="moduleSidebar">
+        <div className="dashBrand">LARIX<span>BOT</span></div>
+        {menuGroups.map(group => (
+          <section className="menuGroup" key={group.title}>
+            <h3>{group.title}</h3>
+            <div className="menuItems">
+              {group.items.map(([label, icon, href]) => (
+                <a className={label === 'Achievements' ? 'menuItem active' : 'menuItem'} href={href} key={label}>
+                  <span className="sideDot" />
+                  <span className="menuIcon">{icon}</span>
+                  <span>{label}</span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </aside>
+
+      <main className="moduleMain">
+        <header className="moduleHeader">
+          <div>
+            <div className="titleRow">
+              <h1>Achievements</h1>
+              <span className="betaPill">Larix</span>
+            </div>
+            <p>Let your members hunt achievements, earn rewards, and stay active in Larix Kit.</p>
           </div>
+          <div className="activeToggle"><span>Active</span><b>ON</b></div>
+        </header>
+
+        <nav className="tabs">
+          <a className="tab active" href="#achievements">Achievements</a>
+          <a className="tab" href="#config">Configuration</a>
+          <a className="tab" href="#commands">Commands</a>
         </nav>
 
-        <div className="heroGrid">
-          <div className="heroText">
-            <p className="eyebrow">Discord Bot + MCBE Dashboard</p>
-            <h1>The control center for Larix Kit.</h1>
-            <p className="heroSub">
-              A custom programmed dashboard for Larix Network, built for embeds,
-              suggestions, tickets, moderation, welcome systems, staff tools, and
-              Minecraft Bedrock community management.
-            </p>
-            <div className="heroActions">
-              <a className="primaryBtn" href="/suggestions">Open Dashboard</a>
-              <a className="secondaryBtn" href="/embeds">Create Embed</a>
-            </div>
+        <section className="achievementTypes">
+          <div className="typeCard">
+            <div className="cubeIcon mutedCube">⬡</div>
+            <h2>Single achievement</h2>
+            <p>A one-time achievement with no tiers.</p>
           </div>
-
-          <div className="heroPanel">
-            <div className="panelHeader">
-              <span className="dot red" />
-              <span className="dot yellow" />
-              <span className="dot green" />
-              <span className="panelTitle">larix.config.json</span>
-            </div>
-            <pre>{`{
-  "programmed_by": "MrTacoL",
-  "network": "Larix Kit",
-  "systems": [
-    "Custom JSON UI",
-    "Discord Dashboard",
-    "Embeds",
-    "Suggestions",
-    "Tickets",
-    "Moderation"
-  ],
-  "status": "online"
-}`}</pre>
+          <div className="typeCard selected">
+            <div className="tierCubes">⬡ ⬡ ⬡ ⬡</div>
+            <h2>Tiered achievement</h2>
+            <p>Includes tiers that members unlock when they make progress.</p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section className="featureStrip">
-        {features.map(([title, text]) => (
-          <div className="feature" key={title}>
-            <h3>{title}</h3>
-            <p>{text}</p>
-          </div>
-        ))}
-      </section>
+        <section className="achievementToolbar">
+          <h2>Achievements</h2>
+          <div className="searchBox">🔎 Search for an achievement</div>
+        </section>
 
-      <section className="dashboardPreview">
-        <div className="sectionTitle">
-          <p className="eyebrow">Dashboard Modules</p>
-          <h2>Manage everything from one clean panel.</h2>
-        </div>
-        <div className="grid">
-          {pages.map(([title, href, text]) => (
-            <a className="card" href={href} key={title}>
-              <h2>{title}</h2>
-              <p className="muted">{text}</p>
-            </a>
+        <section className="achievementGrid">
+          {achievementCards.map(([title, subtitle, tiers]) => (
+            <article className="achievementCard" key={title}>
+              <div className="cardTop">
+                <div className="tierBadge">⬡⬡⬡⬡</div>
+                <span className="miniToggle" />
+              </div>
+              <div className="cardTitleRow">
+                <div>
+                  <h3>{title}</h3>
+                  <p>{subtitle}</p>
+                </div>
+                <span className="arrow">›</span>
+              </div>
+              <div className="tierList">
+                {tiers.map(tier => {
+                  const [name, value] = tier.split(' ');
+                  return <div key={tier}><span>{name}</span><span>{value}</span></div>;
+                })}
+              </div>
+              <div className="progressLine"><span /></div>
+              <div className="serverProgress"><span>Server progress</span><span>0%</span></div>
+            </article>
           ))}
-        </div>
-      </section>
-    </main>
+        </section>
+      </main>
+    </div>
   );
 }
