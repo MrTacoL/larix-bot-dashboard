@@ -1,44 +1,95 @@
+const features = [
+  ['Custom JSON UI', 'Build clean panels, controls, and server menus with a Larix-style dashboard flow.'],
+  ['Discord Tools', 'Embeds, suggestions, tickets, welcome messages, and moderation from one place.'],
+  ['MCBE Connected', 'Made for Larix Kit and the Minecraft Bedrock community.'],
+  ['Staff Control', 'Simple tools for staff teams, logs, permissions, and community systems.']
+];
+
 const pages = [
-  ['Suggestions', 'Choose channel, staff role, colors, and review style.'],
-  ['Embed Sender', 'Build embeds with images, thumbnails, colors, and previews.'],
-  ['Reaction Roles', 'Create role panels like MEE6.'],
-  ['Welcome', 'Set welcome channel, message, image, and auto role.'],
-  ['Moderation', 'Logs, automod, blocked words, and punishments.'],
-  ['Tickets', 'Ticket panels, staff role, category, and transcript channel.']
+  ['Suggestions', '/suggestions', 'Setup suggestion channels, staff review, approvals, and colors.'],
+  ['Embed Sender', '/embeds', 'Send clean custom embeds straight to Discord channels.'],
+  ['Welcome', '/welcome', 'Control welcome messages, images, channels, and auto roles.'],
+  ['Moderation', '/moderation', 'Configure automod, blocked words, anti-link, and anti-invite tools.'],
+  ['Tickets', '/tickets', 'Create ticket panels with staff roles and transcript channels.'],
+  ['Reaction Roles', '/reaction-roles', 'Build role panels for your Discord community.']
 ];
 
 export default function Home() {
   return (
-    <div className="shell">
-      <aside className="sidebar">
-        <div className="logo">Larix<span>Bot</span></div>
-        <nav className="nav">
-          <a href="/">Overview</a>
-          <a href="/suggestions">Suggestions</a>
-          <a href="/embeds">Embed Sender</a>
-          <a href="/reaction-roles">Reaction Roles</a>
-          <a href="/welcome">Welcome</a>
-          <a href="/moderation">Moderation</a>
-          <a href="/tickets">Tickets</a>
-        </nav>
-      </aside>
-      <main className="main">
-        <div className="header">
-          <div>
-            <h1>Larix Bot Dashboard</h1>
-            <p className="muted">MEE6-style dashboard starter for your Discord bot.</p>
+    <main className="home">
+      <section className="hero">
+        <div className="heroGlow" />
+        <nav className="topbar">
+          <div className="brand">Larix<span>Kit</span></div>
+          <div className="toplinks">
+            <a href="/suggestions">Dashboard</a>
+            <a href="/embeds">Embeds</a>
+            <a href="/tickets">Tickets</a>
           </div>
-          <div className="badge">Backend ready</div>
+        </nav>
+
+        <div className="heroGrid">
+          <div className="heroText">
+            <p className="eyebrow">Discord Bot + MCBE Dashboard</p>
+            <h1>The control center for Larix Kit.</h1>
+            <p className="heroSub">
+              A custom programmed dashboard for Larix Network, built for embeds,
+              suggestions, tickets, moderation, welcome systems, staff tools, and
+              Minecraft Bedrock community management.
+            </p>
+            <div className="heroActions">
+              <a className="primaryBtn" href="/suggestions">Open Dashboard</a>
+              <a className="secondaryBtn" href="/embeds">Create Embed</a>
+            </div>
+          </div>
+
+          <div className="heroPanel">
+            <div className="panelHeader">
+              <span className="dot red" />
+              <span className="dot yellow" />
+              <span className="dot green" />
+              <span className="panelTitle">larix.config.json</span>
+            </div>
+            <pre>{`{
+  "programmed_by": "MrTacoL",
+  "network": "Larix Kit",
+  "systems": [
+    "Custom JSON UI",
+    "Discord Dashboard",
+    "Embeds",
+    "Suggestions",
+    "Tickets",
+    "Moderation"
+  ],
+  "status": "online"
+}`}</pre>
+          </div>
         </div>
-        <section className="grid">
-          {pages.map(([title, text]) => (
-            <div className="card" key={title}>
+      </section>
+
+      <section className="featureStrip">
+        {features.map(([title, text]) => (
+          <div className="feature" key={title}>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="dashboardPreview">
+        <div className="sectionTitle">
+          <p className="eyebrow">Dashboard Modules</p>
+          <h2>Manage everything from one clean panel.</h2>
+        </div>
+        <div className="grid">
+          {pages.map(([title, href, text]) => (
+            <a className="card" href={href} key={title}>
               <h2>{title}</h2>
               <p className="muted">{text}</p>
-            </div>
+            </a>
           ))}
-        </section>
-      </main>
-    </div>
+        </div>
+      </section>
+    </main>
   );
 }
