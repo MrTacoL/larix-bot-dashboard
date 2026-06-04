@@ -1,76 +1,97 @@
-const navGroups = [
-  {
-    title: 'Essentials',
-    items: [
-      ['Welcome & Goodbye','👋','/welcome'],
-      ['Welcome Channel','📢','/welcome-channel'],
-      ['Reaction Roles','💬','/reaction-roles'],
-      ['Moderator','🛡️','/moderation'],
-      ['Logging','📜','/logging'],
-      ['Levels','🏆','/levels'],
-      ['Achievements','⭐','/achievements'],
-      ['Starboards','🌟','/starboards']
-    ]
-  },
-  {
-    title: 'Server Management',
-    items: [
-      ['Automations','🔗','/automations'],
-      ['Custom Commands','⌘','/commands'],
-      ['Invite Tracker','👥','/invites'],
-      ['Ticketing','🎫','/tickets']
-    ]
-  },
-  {
-    title: 'Utilities',
-    items: [
-      ['Polls','📊','/polls'],
-      ['Embed Messages','📝','/embeds'],
-      ['Search Anything','🔎','/search'],
-      ['Help','⚙️','/help'],
-      ['Reminders','⏱️','/reminders'],
-      ['Statistics Channels','📈','/statistics'],
-      ['Temporary Channels','🔊','/temporary-channels']
-    ]
-  }
-];
+import {
+  Activity,
+  AlarmClock,
+  Award,
+  BadgeCheck,
+  BarChart3,
+  Bot,
+  CircleHelp,
+  DoorOpen,
+  LayoutDashboard,
+  LifeBuoy,
+  MessageSquarePlus,
+  PanelTop,
+  ScanLine,
+  ScrollText,
+  Search,
+  Shield,
+  Star,
+  TerminalSquare,
+  Trophy,
+  UserPlus,
+  Volume2,
+  Workflow
+} from 'lucide-react';
+import { navGroups } from '../config/modules';
 
-export default function DashboardFrame({ title, subtitle, activePath, badge = 'Connected', children }) {
+const icons = {
+  Activity,
+  AlarmClock,
+  Award,
+  BadgeCheck,
+  BarChart3,
+  CircleHelp,
+  DoorOpen,
+  LayoutDashboard,
+  LifeBuoy,
+  MessageSquarePlus,
+  PanelTop,
+  ScanLine,
+  ScrollText,
+  Search,
+  Shield,
+  Star,
+  TerminalSquare,
+  Trophy,
+  UserPlus,
+  Volume2,
+  Workflow
+};
+
+function NavIcon({ name }) {
+  const Icon = icons[name] || Bot;
+  return <Icon aria-hidden="true" size={17} strokeWidth={2.2} />;
+}
+
+export default function DashboardFrame({ title, description, activePath = '/', badge = 'Online', actions, children }) {
   return (
-    <div className="dashShell">
-      <aside className="moduleSidebar">
-        <a className="dashBrand" href="/">LARIX<span>BOT</span></a>
-        {navGroups.map(group => (
-          <section className="menuGroup" key={group.title}>
-            <h3>{group.title}</h3>
-            <div className="menuItems">
-              {group.items.map(([label, icon, href]) => (
-                <a className={href === activePath ? 'menuItem active' : 'menuItem'} href={href} key={label}>
-                  <span className="sideDot" />
-                  <span className="menuIcon">{icon}</span>
-                  <span>{label}</span>
-                </a>
-              ))}
-            </div>
-          </section>
-        ))}
-      </aside>
-      <main className="moduleMain">
-        <header className="moduleHeader">
-          <div>
-            <div className="titleRow"><h1>{title}</h1><span className="betaPill">Larix</span></div>
-            <p>{subtitle}</p>
-          </div>
-          <div className="activeToggle"><span>{badge}</span><b>ON</b></div>
-        </header>
-        <nav className="tabs">
-          <a className="tab active" href="#settings">Settings</a>
-          <a className="tab" href="#preview">Preview</a>
-          <a className="tab" href="#backend">Backend</a>
+    <div className="appShell">
+      <aside className="sidebar">
+        <a className="brand" href="/">
+          <span className="brandMark"><Bot size={18} /></span>
+          <span>Larix</span>
+        </a>
+
+        <nav className="navGroups" aria-label="Dashboard">
+          {navGroups.map(group => (
+            <section className="navGroup" key={group.title}>
+              <h2>{group.title}</h2>
+              <div className="navItems">
+                {group.items.map(([label, icon, href]) => (
+                  <a className={href === activePath ? 'navItem active' : 'navItem'} href={href} key={href}>
+                    <NavIcon name={icon} />
+                    <span>{label}</span>
+                  </a>
+                ))}
+              </div>
+            </section>
+          ))}
         </nav>
-        <section id="settings" className="moduleGrid singleModule">
-          {children}
-        </section>
+      </aside>
+
+      <main className="mainPane">
+        <header className="topBar">
+          <div className="titleBlock">
+            <p className="eyebrow">Discord Control Center</p>
+            <h1>{title}</h1>
+            <p>{description}</p>
+          </div>
+          <div className="topActions">
+            <span className="statusPill"><span />{badge}</span>
+            {actions}
+          </div>
+        </header>
+        {children}
       </main>
     </div>
   );
