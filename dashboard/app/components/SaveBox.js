@@ -3,10 +3,10 @@
 import { useState } from 'react';
 
 const guild = '1357145785506074825';
-const base = 'http://localhost:4000';
+const base = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:4000';
 
 export default function SaveBox({ title, section, fields }) {
-  const initial = Object.fromEntries(fields.map(field => [field.key, field.value || '']));
+  const initial = Object.fromEntries(fields.map(field => [field.key, field.value ?? '']));
   const [values, setValues] = useState(initial);
   const [note, setNote] = useState('');
 
@@ -16,12 +16,17 @@ export default function SaveBox({ title, section, fields }) {
 
   async function save() {
     setNote('Saving...');
-    const response = await fetch(`${base}/api/guilds/${guild}/settings`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ [section]: values })
-    });
-    setNote(response.ok ? 'Saved.' : 'Save failed. Check backend console.');
+    try {
+      const response = await fetch(`${base}/api/guilds/${guild}/settings`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ [section]: values })
+      });
+      const data = await response.json().catch(() => ({}));
+      setNote(response.ok ? 'Saved.' : data.error || 'Save failed. Check backend console.');
+    } catch (error) {
+      setNote(error.message);
+    }
   }
 
   return (
