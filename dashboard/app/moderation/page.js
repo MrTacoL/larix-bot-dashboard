@@ -1,0 +1,5 @@
+export default function ModerationPage() {
+  return (
+    <div className="shell"><aside className="sidebar"><div className="logo">Larix<span>Bot</span></div><nav className="nav"><a href="/">Overview</a><a href="/suggestions">Suggestions</a><a href="/embeds">Embed Sender</a><a href="/reaction-roles">Reaction Roles</a><a href="/welcome">Welcome</a><a href="/moderation">Moderation</a><a href="/tickets">Tickets</a></nav></aside><main className="main"><div className="header"><div><h1>Moderation</h1><p className="muted">Configure logs, anti-link, anti-invite, and blocked words.</p></div><div className="badge">AutoMod</div></div><div className="card"><form className="form"><label>Log Channel ID<input placeholder="Channel ID" /></label><label>Anti Links<select><option>Off</option><option>On</option></select></label><label>Anti Invites<select><option>On</option><option>Off</option></select></label><label>Blocked Words<textarea placeholder="one word per line" /></label><button type="button">Save Moderation</button></form></div></main></div>
+  );
+}
